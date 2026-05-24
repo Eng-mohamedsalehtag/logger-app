@@ -1,7 +1,12 @@
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '../../.env') });
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
 
-// Required environment variables
-const REQUIRED_VARS = ['PORT', 'MONGO_URI', 'JWT_SECRET', 'JWT_EXPIRES_IN', 'NODE_ENV'];
+// PORT is only required for local server.js (not Vercel serverless)
+const REQUIRED_VARS = ['MONGO_URI', 'JWT_SECRET', 'JWT_EXPIRES_IN', 'NODE_ENV'];
+if (!process.env.VERCEL) {
+  REQUIRED_VARS.push('PORT');
+}
 
 // Validate all required vars are present
 REQUIRED_VARS.forEach((key) => {

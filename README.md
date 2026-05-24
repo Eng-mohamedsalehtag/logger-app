@@ -46,6 +46,22 @@ Set `VITE_USE_MOCK=true` to run the UI without a backend (any email/password wor
 - `npm run build` — Production build
 - `npm run preview` — Preview production build
 
+## Deploy to Vercel
+
+1. Push the repo to GitHub and import it in [Vercel](https://vercel.com).
+2. Add **Environment Variables** (see `.env.example`):
+   - `MONGO_URI` — MongoDB Atlas connection string (allow `0.0.0.0/0` in Atlas Network Access)
+   - `JWT_SECRET`, `JWT_EXPIRES_IN`, `NODE_ENV=production`
+   - `FRONTEND_URL` — your Vercel URL, e.g. `https://your-app.vercel.app`
+   - `VITE_USE_MOCK=false`, `VITE_API_URL=/api`
+3. Deploy. The frontend is static; `/api/*` runs as a serverless function (`api/index.js`).
+
+```bash
+# Optional: deploy from CLI
+npm i -g vercel
+vercel
+```
+
 ## Stack
 
 - React 19 + Vite + TypeScript
