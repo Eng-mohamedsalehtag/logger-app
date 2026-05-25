@@ -1,38 +1,42 @@
-import { Button } from '@/components/ui/Button'
-import { Input } from '@/components/ui/Input'
-import { useAuth } from '@/context/AuthContext'
-import * as authService from '@/services/authService'
-import { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
+import { useAuth } from "@/context/AuthContext";
+import * as authService from "@/services/authService";
+import { useEffect, useState } from "react";
+import { useToast } from "@/components/ui/Toast";
+import { Link, useNavigate } from "react-router-dom";
 
 export function LoginPage() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [remember, setRemember] = useState(false)
-  const [error, setError] = useState('')
-  const [loading, setLoading] = useState(false)
-  const { login, isAuthenticated } = useAuth()
-  const navigate = useNavigate()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [remember, setRemember] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const { login, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+  const { showToast } = useToast();
 
   useEffect(() => {
-    if (isAuthenticated) navigate('/', { replace: true })
-  }, [isAuthenticated, navigate])
+    if (isAuthenticated) navigate("/", { replace: true });
+  }, [isAuthenticated, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setError('')
-    setLoading(true)
+    e.preventDefault();
+    setError("");
+    setLoading(true);
     try {
-      const res = await authService.login({ email, password })
-      login(res.user)
-      if (remember) localStorage.setItem('observify_remember', email)
-      navigate('/')
+      const res = await authService.login({ email, password });
+      login(res.user);
+      if (remember) localStorage.setItem("observify_remember", email);
+      navigate("/");
+      showToast("Login successful");
     } catch {
-      setError('Invalid email or password')
+      setError("Invalid email or password");
+      showToast("Invalid email or password");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <div>
@@ -73,15 +77,18 @@ export function LoginPage() {
         </div>
         {error && <p className="text-sm text-error">{error}</p>}
         <Button type="submit" className="w-full" size="lg" disabled={loading}>
-          {loading ? 'Signing in…' : 'Sign in'}
+          {loading ? "Signing in…" : "Sign in"}
         </Button>
       </form>
       <p className="mt-8 text-center text-sm text-text-muted">
-        Don&apos;t have an account?{' '}
-        <Link to="/register" className="font-medium text-accent-purple hover:underline">
+        Don&apos;t have an account?{" "}
+        <Link
+          to="/register"
+          className="font-medium text-accent-purple hover:underline"
+        >
           Create account
         </Link>
       </p>
     </div>
-  )
+  );
 }
