@@ -1,6 +1,23 @@
 # Observify — Logging & Monitoring Dashboard
 
-A production-ready, dark-mode SaaS dashboard UI for a logging and monitoring platform. Built with React, Vite, TypeScript, Tailwind CSS, Express, and MongoDB.
+A full-stack logging and monitoring platform with a modern SaaS-style dashboard.
+
+This repository includes:
+
+- A **frontend** built with React, Vite, TypeScript, Tailwind CSS, and Recharts
+- A **backend API** using Express, Mongoose, MongoDB, and JWT auth
+- A **developer SDK** for external log ingestion via `x-api-key`
+
+## Project Overview
+
+Observify helps developers track application logs, manage API keys, and view analytics in a single dashboard.
+
+Key capabilities:
+
+- Secure **user authentication** and account management
+- **Application management** with search, create, and delete workflows
+- **Log listing** with filters, pagination, and real-time analytics charts
+- **API key-based ingestion** for external services to submit logs
 
 ## Features
 
@@ -33,10 +50,10 @@ The dev server proxies `/api` → `http://localhost:3000`.
 
 ## Environment
 
-| Variable | Default | Description |
-|----------|---------|-------------|
+| Variable        | Default | Description                          |
+| --------------- | ------- | ------------------------------------ |
 | `VITE_USE_MOCK` | `false` | Use in-memory mock data (no backend) |
-| `VITE_API_URL` | `/api` | API base URL (proxied in dev) |
+| `VITE_API_URL`  | `/api`  | API base URL (proxied in dev)        |
 
 Set `VITE_USE_MOCK=true` to run the UI without a backend (any email/password works).
 
@@ -69,3 +86,14 @@ vercel
 - React Router
 - Recharts
 - Express 5 + Mongoose + MongoDB
+
+## Screenshot
+
+![Observify Dashboard Screenshot](<./screanshots/Screenshot%20(354).png>)
+![Observify Dashboard Screenshot](<./screanshots/Screenshot (355).png>)
+![Observify Dashboard Screenshot](<./screanshots/Screenshot%20(356).png>)
+![Observify Dashboard Screenshot](<./screanshots/Screenshot%20(357).png>)
+![Observify Dashboard Screenshot](<./screanshots/Screenshot%20(358).png>)
+![Observify Dashboard Screenshot](<./screanshots/Screenshot%20(359).png>)
+![Observify Dashboard Screenshot](<./screanshots/Screenshot%20(362).png>)
+![Observify Dashboard Screenshot](<./screanshots/Screenshot%20(363).png>)
