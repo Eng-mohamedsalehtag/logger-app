@@ -143,12 +143,12 @@ export function ApplicationDetailPage() {
               search={search}
               onSearchChange={setSearch}
               level={level}
-              onLevelChange={(l) => {
+              onLevelChange={(l: LogLevel | 'ALL') => {
                 setLevel(l)
                 setPage(1)
               }}
               sort={sort}
-              onSortChange={(s) => {
+              onSortChange={(s: LogSort) => {
                 setSort(s)
                 setPage(1)
               }}
