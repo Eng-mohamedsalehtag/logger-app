@@ -51,16 +51,22 @@ export function ApplicationDetailPage() {
   }, [search])
 
   useEffect(() => {
-    setPage(1)
-  }, [level, sort])
-
-  useEffect(() => {
     if (!appName) return
-    setAppLoading(true)
-    applicationService.getApplicationByName(appName).then((data) => {
-      setApp(data)
-      setAppLoading(false)
+    let ignore = false
+    Promise.resolve().then(() => {
+      if (!ignore) {
+        setAppLoading(true)
+      }
     })
+    applicationService.getApplicationByName(appName).then((data) => {
+      if (!ignore) {
+        setApp(data)
+        setAppLoading(false)
+      }
+    })
+    return () => {
+      ignore = true
+    }
   }, [appName])
 
   if (appLoading) {
@@ -137,9 +143,15 @@ export function ApplicationDetailPage() {
               search={search}
               onSearchChange={setSearch}
               level={level}
-              onLevelChange={setLevel}
+              onLevelChange={(l) => {
+                setLevel(l)
+                setPage(1)
+              }}
               sort={sort}
-              onSortChange={setSort}
+              onSortChange={(s) => {
+                setSort(s)
+                setPage(1)
+              }}
             />
             <LogsTable logs={logsData?.items ?? []} loading={logsLoading} />
             {logsData && logsData.totalPages > 0 && (

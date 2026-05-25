@@ -32,7 +32,15 @@ export function useAnalytics(appName: string) {
   }, [appName])
 
   useEffect(() => {
-    refresh()
+    let ignore = false
+    Promise.resolve().then(() => {
+      if (!ignore) {
+        refresh()
+      }
+    })
+    return () => {
+      ignore = true
+    }
   }, [refresh])
 
   return { distribution, timeSeries, loading, error, refresh }

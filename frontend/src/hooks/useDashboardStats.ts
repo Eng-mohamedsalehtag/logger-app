@@ -26,7 +26,15 @@ export function useDashboardStats() {
   }, [])
 
   useEffect(() => {
-    refresh()
+    let ignore = false
+    Promise.resolve().then(() => {
+      if (!ignore) {
+        refresh()
+      }
+    })
+    return () => {
+      ignore = true
+    }
   }, [refresh])
 
   return { stats, apiKey, loading, error, refresh }

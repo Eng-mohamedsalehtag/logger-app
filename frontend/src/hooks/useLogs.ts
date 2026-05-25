@@ -19,10 +19,19 @@ export function useLogs(appName: string, params: LogQueryParams) {
     } finally {
       setLoading(false)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appName, params.page, params.pageSize, params.search, params.level, params.sort])
 
   useEffect(() => {
-    refresh()
+    let ignore = false
+    Promise.resolve().then(() => {
+      if (!ignore) {
+        refresh()
+      }
+    })
+    return () => {
+      ignore = true
+    }
   }, [refresh])
 
   return { data, loading, error, refresh }

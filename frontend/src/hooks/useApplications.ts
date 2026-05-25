@@ -21,7 +21,15 @@ export function useApplications(search?: string) {
   }, [search])
 
   useEffect(() => {
-    refresh()
+    let ignore = false
+    Promise.resolve().then(() => {
+      if (!ignore) {
+        refresh()
+      }
+    })
+    return () => {
+      ignore = true
+    }
   }, [refresh])
 
   const create = async (name: string) => {
